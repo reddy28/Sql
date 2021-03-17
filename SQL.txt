@@ -1,0 +1,443 @@
+Topic 1: 
+Data Retrieval manipulation
+Assignment : 1
+
+a. SELECT count(EMPNO), avg(SAL) FROM Employee WHERE DEPTNO = 20;
+b. SELECT ENAME, SAL, SAL * 0.1 AS 'PF' FROM Employee;
+c. SELECT ENAME, JOB FROM Employee WHERE MGR is null;
+d. SELECT ENAME, EMPNO, JOB, HIREDATE FROM Employee WHERE EMPNO in (SELECT MGR FROM Employee);
+e. SELECT EMPNO, ENAME, SAL FROM Employee WHERE MGR = 7369;
+f. SELECT * FROM Employee WHERE JOB = 'Clerk' OR JOB = 'Trainer';
+g. SELECT * FROM Employee WHERE SAL between 10000 and 20000;
+h. SELECT ENAME FROM Employee WHERE COMM is null;
+i. SELECT * FROM Employee WHERE ENAME like 'H%' OR ENAME like '%H';
+j. SELECT * FROM Employee Order by SAL;
+k. SELECT * FROM Employee WHERE DEPTNO not in (10, 20, 30);
+l. SELECT EMPNO, ENAME, SAL * 12 AS "AnnualSalary" FROM Employee WHERE DEPTNO = 10;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Assignment : 2
+
+a. SELECT * FROM Books WHERE Author_name = 'Loni' and Cost < 600;
+b. SELECT * FROM Issue WHERE Return_date is null;
+c. SELECT * FROM Issue WHERE datediff(days,Return_date,Issue_Date)) > 30;
+d. SELECT * FROM Books WHERE Category = 'Database' and Cost between 500 and 750;
+e. SELECT * FROM Books WHERE Category in ('Science', 'Database', 'Fiction', 'Management');
+f. SELECT * FROM Member Order by Penalty_Amount desc;
+g. SELECT * FROM Books Order by Category, Cost desc;
+h. SELECT * FROM Books WHERE Book_Name like '%SQL%';
+i. SELECT * FROM Member WHERE Member_Name like '%I%' and (Member_Name like 'R%' OR Member_Name like 'G%');
+j. SELECT initcap(Book_Name), AuthOR_name FROM Books ORder by Book_Name desc;
+k. select to_char(Issue_Date, 'Day MON, DD, YY'), to_char(Return_date, 'Day MON, DD, YY') from Issue where Member_Id = 101;
+l. SELECT * FROM Member WHERE Acc_Open_Date >= '1-jan-01';
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Assignment : 3
+
+a. SELECT TIMESTAMPDIFF(Return_date,Issue_Date) FROM Issue
+b. SELECT length(Member_Name) FROM Member;
+c. SELECT LEFT(Membership_type,5) FROM Member;
+d. SELECT Dayname(max(Issue_Date)) FROM Issue;
+e. SELECT * FROM Books WHERE Book_Name REGEXP '^l';
+f. SELECT * FROM Member WHERE Member_Name like 'R%;
+g. SELECT * FROM Books WHERE Book_Name like '%SQL%';
+h. Update Books set Book_name =  REGEXP_REPLACE(Book_Name, 'Mastering', 'Advanced');
+i. SELECT * FROM Books WHERE left(Book_Name,5) REGEXP 'g';
+j. SELECT Lib_Issue_Id, Issue_Date,Return_Date,datediff(days,Return_date,Issue_Date) as "Issued days" FROM Issue;
+k. SELECT sum(Penality_Amount) FROM Member;
+l. SELECT * FROM members Order by Acc_Open_Date ;
+
+______________________________________________________________________________________________________________________________________________________________________________
+
+Topic 2: 
+Data Types
+Assignment : 1
+
+a. Numeric and number(10,2) wORks as same .
+b. CHAR(48) is fixed-length character data type, WHEREas VARCHAR(48) is a dynamic-length character data type in ORacle SQL.
+c. CHAR is fixed-length character data type, VARCHAR2 is dynamic-length character data type, CLOB is a large character data type containing single-byte OR multibyte characters.
+d. VARCHAR2, NVARCHAR2, NUMBER, FLOAT, LONG, DATE, BINARY_FLOAT, BINARY_DOUBLE, TIMESTAMP, TIMESTAMP WITH TIME ZONE, TIMESTAMP WITH LOCAL TIME ZONE, INTERVAL YEAR TO MONTH, INTERVAL DAY TO SECOND, RAW, LONG RAW, ROWID, UROWID, CHAR, NCHAR, CLOB, NCLOB, BLOB, BFILE.
+e. CLOB contains a character large object containing single-byte OR multibyte characters. BLOB contains a binary large object.
+f. DATE
+g. MM-DD-YYYY
+h. SELECT to_char(sysdate, 'MON DD YYYY') FROM dual;
+i. BINARY_FLOAT is 32-bit floating point number of 4 bytes, WHEREas NUMBER is a numeric value which has having precision p and scale s, ranges between 1 to 22 bytes.
+j. BFILE Contains a locatOR to a large binary file stORed outside the database. It enables byte stream I/O access to external LOBs residing on the database server.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------_
+
+Assignment : 2
+
+a. Char is non -unicode fixed length upto 8000 characters with stORage size n bytes and nchar is Unicode fixed-length can stORe both non-Unicode and Unicode characters upto 4000 characters with stORage size 2times n bytes
+b. NUMBER, BINARY_FLOAT, BINARY_DOUBLE are all the numeric types.
+c. DATE stORes values as century, year, month, date, hour, minute, and second.
+   TIMESTAMP stORes values as year, month, day, hour, minute, second, and fractional seconds.
+d. Blobs are in the database and all of the features of the database are available. A bfile is a file in the OS, outside the database.
+e. INTEGER is used to stORe large integers with a precision of 31 bits. The range of INT is -2,147,483,648 to +2,147,483,647.
+   SMALLINT is used to stORes small integers with a precision of 15 bits. The range of SMALLINT is -32,768 to +32,767.
+f. Integer type can contain only whole numbers, like 5 OR 123. Numeric type can contain decimal numbers like 15.39.
+g. Date type is used to stORe only the date
+h. LONG columns stORe variable-length character strings containing up to 2 gigabytes -1, OR 231-1 bytes.
+   RAW datatype allows you to stORe and manipulate relatively small amounts of binary data.
+i. VARCHAR2 - Variable-length character string having maximum length size bytes OR characters. Maximum size is 4000 bytes OR characters.
+   NVARCHAR2 - Variable-length Unicode character string having maximum length size characters. Maximum size is determined by the national character set definition, with an upper limit of 4000 bytes.
+j. BLOB - Binary Large Object, used fOR stORing binary data. cx_ORacle uses the type cx_ORacle.DB_TYPE_BLOB.
+   CLOB - Character Large Object, used fOR string strings in the database character set fORmat. cx_ORacle uses the type cx_ORacle.DB_TYPE_CLOB.
+
+______________________________________________________________________________________________________________________________________________________________________________
+
+Topic 3: 
+Aggregation and Sub-Queries
+Assignment : 1
+
+a. SELECT count(*) "Number of Employees" FROM Employee;
+b. SELECT count(JOB) "Number of Designations" FROM Employee;
+c. SELECT SUM(SAL) "Total Salary" FROM Employee;
+d. SELECT MAX(SAL) "Maximum Salary", MIN(SAL) "Minimum Salary", AVG(SAL) "Average Salary" FROM Employee;
+e. SELECT MAX(SAL) "Maximum Salary fOR Salesman" FROM Employee WHERE JOB = 'Salesman';
+f. SELECT * FROM Vehicle v join Shipment s on (v.VehNo = s.VehicleNo) join Customer c on (s.CustId = c.CustId) WHERE c.CustIncome > 120000;
+g. SELECT c.CustName, c.CustIncome FROM Customer c join Shipment s on (s.CustId = c.CustId) WHERE s.VehicleNo = (SELECT VehNo FROM Vehicle WHERE VehDriver = 'Baskar');
+h. SELECT * FROM Customer WHERE (SELECT count(distinct(VehicleNo)) FROM Shipment WHERE Shipment.CustId = Customer.CustId) >= (SELECT count(*) FROM Vehicle);
+i. SELECT * FROM Customer WHERE CustIncome > 500000 and CustId = (SELECT CustId FROM Shipment WHERE ShipWeight > 100 OR ShipDestination = 'NewDelhi');
+j. SELECT * FROM Vehicle WHERE VehNo = (SELECT MAX(VehicleNo) FROM Shipment);
+
+.............................................................................................................
+
+Assignment : 2
+
+a. SELECT count(*) "Number of Members" FROM Member;
+b. SELECT count(*) "Number of Books Issued" FROM Issue;
+c. SELECT avg(Fees_paid) "Average Membership Fees" FROM Member;
+d. SELECT Book_No FROM Books WHERE Book_No not in (SELECT Book_No FROM Issue);
+e. SELECT Member_Id FROM Member WHERE Member_Id in (SELECT Member_Id FROM Issue);
+f. SELECT Member_Id "Highest Books" FROM Member WHERE Member_Id = (SELECT MAX(Member_Id) FROM Issue);
+   SELECT Member_Id "Lowest Books" FROM Member WHERE Member_Id = (SELECT MIN(Member_Id) FROM Issue);
+g. SELECT Book_No, Book_Name FROM Books WHERE Book_No in (SELECT Book_No FROM Issue WHERE to_char(Issue_Date, 'Month') in ('June', 'December'));
+h. SELECT b.Book_No, b.Book_Name, i.Issue_Date, i.Return_date FROM Books b join Issue i using (Book_No) WHERE i.Member_Id = (SELECT Member_Id FROM Member WHERE Member_Name = 'Stalin');
+i. SELECT * FROM Books WHERE cost in (SELECT MAX(Cost) FROM Books group by CategORy);
+j. SELECT m.Member_Id, m.Member_Name FROM Member m, Issue i WHERE m.Max_Books_Allowed < (SELECT(count(Book_No) FROM Issue WHERE m.Member_Id = i.Member_Id) and m.Member_Id = i.Member_Id group by m.Member_name, m.Member_Id;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------_
+
+Assignment : 3
+
+a. SELECT UNIQUE JOB  FROM Employee;  
+b. SELECT * FROM Employee WHERE SAL > (SELECT SAL FROM Employee WHERE ENAME = "BLAKE");
+c. SELECT * FROM Employee WHERE JOB  = (SELECT JOB FROM Employee WHERE ENAME = "ALLEN");
+d. SELECT * FROM Employee WHERE HIREDATE < (SELECT HIREDATE FROM Employee WHERE ENAME="KING");
+e. SELECT * FROM Employee w,EMPLOYEE m WHERE w.EMPNO=m.EMPNO and w.HIREDATE<m.HIREDATE;
+f. SELECT * FROM Employee WHERE JOB = (SELECT JOB FROM Employee WHERE EMPNO=7788) and  DEPTNO =(SELECT DEPTNO FROM Employee WHERE EMPNO =7788);
+g. SELECT * FROM Employee WHERE SAL > (SELECT AVG(SAL) FROM Employee);
+h. SELECT * FROM Employee WHERE HIREDATE > (SELECT HIREDATE FROM Employee WHERE ENAME="KING");
+i. SELECT DISTINCT SAL FROM Employee ORDER BY SAL DESC limit 1 offset n-1;
+j. SELECT (SELECT count(ENAME) FROM EMployee WHERE DEPTNO =20) AS "NUMBER OF EMPOLYEES",(SELECT avg(SAL) FROM EMployee WHERE DEPTNO =20) AS "AVERAGE" FROM Employee LIMIT 1z;
+
+_____________________________________________________________________________________________________________
+
+Topic 4: 
+Creating and Managing Database objects
+Assignment : 1
+
+a. create table empcopy as (SELECT * FROM Employee);
+b. create table deptcopy as (SELECT * FROM Department WHERE 1=0);
+c. create index book_name_index on Books(Book_Name);
+d. create index d_index on Issue(Member_Id, Book_No);
+e. alter table Member modify Member_Name varchar(48);
+f. alter table Issue add Reference char(30);
+g. alter table Issue rename to Lib_Issue;
+h. alter table Issue drop column Reference;
+i. alter table Member add constraint CHK_MEMBER check (Max_Books_Allowed < 100 and Penalty_Amount <= 1000);
+j. create sequence MEMBER_SEQ increment by 1 start with 1 minvalue 0 nocycle nocache;
+   create sequence SUPPLIER_SEQ increment by 1 start with 1 minvalue 0 nocycle nocache;
+   insert into Member (Member_Id) values (MEMBER_SEQ.nextval);
+   insert into Supplier (SupplierId) values (SUPPLIER_SEQ.nextval);
+k. create sequence no_seq increment by 2 start with 100 maxvalue 200 nocycle nocache;
+l. drop sequence no_seq;
+m. create sequence book_seq increment by 1 start with 101 maxvalue 1000 nocycle;
+n. create sequence member_seq increment by 1 start with 1 maxvalue 100 nocycle;
+o. drop sequence book_seq;
+   drop sequence member_seq;
+   
+_____________________________________________________________________________________________________________   
+   
+Topic 5: 
+Data Manipulation
+Assignment : 1
+
+a. insert into Employee values (100,'A','PEON',546,'17-MAR-2021',2000,NULL,16);
+   insert into Employee values (101,'B','PEON',546,'17-MAR-2021',2000,NULL,16);
+   insert into Employee values (102,'C','PEON',546,'17-MAR-2021',2000,NULL,16);
+   insert into Employee values (103,'D','PEON',546,'17-MAR-2021',2000,5,16);
+   insert into Employee values (104,'E','PEON',546,'17-MAR-2021',3000,NULL,16);
+   insert into Employee values (105,'F','PEON',546,'17-MAR-2021',2000,NULL,16);
+   insert into Employee values (106,'G','PEON',579,'17-MAR-2021',2000,NULL,16);
+   insert into Employee values (107,'H','PEON',579,'17-MAR-2021',3000,NULL,16);
+   insert into Employee values (108,'Z','PEON',549,'17-MAR-2021',2000,10,16);
+   insert into Employee values (109,'Y','PEON',549,'17-MAR-2021',2000,NULL,16);
+   insert into Employee values (110,'X','PEON',549,'17-MAR-2021',2000,NULL,16);
+   insert into Employee values (120,'W','PEON',579,'17-MAR-2021',5000,NULL,16);
+   insert into Employee values (130,'V','PEON',200,'17-MAR-2021',2000,NULL,16);
+   insert into Employee values (140,'U','PEON',545,'17-MAR-2021',2000,NULL,16);
+   insert into Employee values (150,'T','PEON',545,'17-MAR-2021',7000,10,16);
+b. update Employee set SAL = SAL * 1.1 WHERE DEPTNO in (10, 20);
+c. update Employee set SAL = SAL * 1.1 and COMM = COMM * 1.02 WHERE COMM is not null;
+d. update Employee set JOB = 'MANAGER' WHERE EMPNO in (SELECT MGR FROM Employee);
+e. delete FROM Employee WHERE to_char(HIREDATE, 'YEAR') < 1980;
+f. update Member set Max_Books_Allowed = 110 WHERE Member_Id = 100;
+   ErrOR -> ORA-02290: check constraint CHK_MEMBER violated
+   Reason -> Check constraint was set to Max_Books_Allowed column earlier WHERE its value was set as must be greater than 100, hence the new value of 110 is violating the constraint.
+g. insert into NewBook SELECT * FROM Books;
+h. COMMIT;
+i. insert into Books values (1000, 'MongoDB', 'Allen', 750, 'Database');
+   insert into Books values (1001, 'Python 3', 'Magret', 1350, 'AI');
+   insert into Books values (1002, 'Angular 4', 'Google', 2750, 'UI');
+   insert into Books values (1003, 'PL SQL-Ref', 'Scott Urman', 750, 'Database');
+j. create type t_emp as object(EMPNO number, ENAME varchar2(40), JOB varchar2(20), MGR number, HIREDATE date, SAL number, COMM number, DEPTNO number);
+   create type t_emplist as table of t_emp;
+   insert into Employee values (5, t_emplist(t_emp(160,'I','WAITER',545,'18-MAR-95',5000,7,35),
+											 t_emp(170,'J','WAITER',545,'18-MAR-95',5000,7,35),
+											 t_emp(180,'K','WAITER',590,'18-MAR-95',8000,7,35),
+											 t_emp(190,'L','WAITER',545,'18-MAR-95',5000,7,35),
+											 t_emp(260,'M','WAITER',590,'18-MAR-95',2000,NULL));
+k. ROLLBACK;
+l. update Books set Cost = 300 and CategORy = 'ORacleDatabase' WHERE Book_No = 1003;
+m. SAVEPOINT T;
+   delete FROM Issue WHERE Member_Id = 1 and Issue_Date < '10-DEC-06';
+   delete FROM Books WHERE CategORy not in (RDBMS', 'Database');
+   ROLLBACK to T;
+n. COMMIT;
+
+_____________________________________________________________________________________________________________
+
+Topic 6: 
+HQ and DML, DDL Extension
+Assignment 1:
+
+SELECT ENAME, EMPNO, MGR, LEVEL FROM Employee 
+		start with EMPNO = (SELECT EMPNO FROM Employee WHERE MGR is null) 
+			connect by priOR EMPNO = MGR 
+				ORder siblings by ENAME;
+				
+.............................................................................................................
+
+Assignment 2:
+
+CREATE TABLE "SYS_SQLLDR_X_EXT_EMP"
+    (
+      "EMPNO" NUMBER(4),
+      "ENAME" VARCHAR2(10),
+      "JOB" VARCHAR2(9),
+      "HIREDATE" DATE,
+    )
+ORGANIZATION external
+(
+    TYPE ORacle_loader
+    DEFAULT DIRECTORY MY_DIR
+    ACCESS PARAMETERS
+    (
+		RECORDS DELIMITED BY NEWLINE
+        BADFILE 'emp.bad'
+        LOGFILE 't.log_xt'
+		READSIZE 1048576
+		FIELDS TERMINATED BY "," OPTIONALLY ENCLOSED BY '"' LDRTRIM
+		REJECT ROWS WITH ALL NULL FIELDS
+		(
+		"EMPNO" CHAR(255)
+           TERMINATED BY "," OPTIONALLY ENCLOSED BY '"',
+        "ENAME" CHAR(255)
+           TERMINATED BY "," OPTIONALLY ENCLOSED BY '"',
+        "JOB" CHAR(255)
+           TERMINATED BY "," OPTIONALLY ENCLOSED BY '"',
+        "HIREDATE" CHAR(255)
+          TERMINATED BY "," OPTIONALLY ENCLOSED BY '"',
+       )
+     )
+     location
+     (
+       'emp.csv'
+     )
+   )REJECT LIMIT UNLIMITED
+ /
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------_
+
+Assignment : 3
+
+ 
+INSERT ALL
+	INTO SAL_HISTORY VALUES(EMPID,HIREDATE,SAL)
+	INTO mgr_histORy VALUES(EMPID,MGR,SAL)
+	SELECT EMPNO as EMPID, HIREDATE, SAL, MGR 
+	FROM employees;
+_____________________________________________________________________________________________________________
+
+Topic 7: 
+Advanced SQL
+Assignment 1:
+
+ORder in which the steps get executed:-
+
+EXPLAIN PLAN FOR 
+	SELECT e.employee_id,e.first_name,d.department_name
+	FROM hr.employees E, hr.departments D
+	WHERE e.department_id = d.department_id;
+
+SELECT PLAN_TABLE_OUTPUT FROM TABLE(DBMS_XPLAN.DISPLAY());
+
+Output>
+
+PLAN_TABLE_OUTPUT
+Plan hash value: 2052257371
+
+----------------------------------------------------------------------------------
+| Id | Operation | Name | Rows | Bytes | Cost (%CPU)| Time |
+----------------------------------------------------------------------------------
+| 0 | SELECT STATEMENT | | 106 | 3180 | 7 (15)| 00:00:01 |
+|* 1 | HASH JOIN | | 106 | 3180 | 7 (15)| 00:00:01 |
+| 2 | TABLE ACCESS FULL| DEPARTMENTS | 30 | 480 | 3 (0)| 00:00:01 |
+| 3 | TABLE ACCESS FULL| EMPLOYEES | 107 | 1498 | 3 (0)| 00:00:01 |
+----------------------------------------------------------------------------------
+
+Predicate InfORmation (identified by operation id):
+---------------------------------------------------
+
+1 - access("E"."DEPARTMENT_ID"="D"."DEPARTMENT_ID")
+
+SQL> alter session set optimizer_mode=first_rows;
+
+Output>
+
+PLAN_TABLE_OUTPUT
+Plan hash value: 2912831499
+
+-------------------------------------------------------------------------------------------------
+| Id | Operation | Name | Rows | Bytes | Cost (%CPU)| Time |
+-------------------------------------------------------------------------------------------------
+| 0 | SELECT STATEMENT | | 106 | 3180 | 12 (0)| 00:00:01 |
+| 1 | TABLE ACCESS BY INDEX ROWID| EMPLOYEES | 4 | 56 | 1 (0)| 00:00:01 |
+| 2 | NESTED LOOPS | | 106 | 3180 | 12 (0)| 00:00:01 |
+| 3 | TABLE ACCESS FULL | DEPARTMENTS | 30 | 480 | 3 (0)| 00:00:01 |
+|* 4 | INDEX RANGE SCAN | EMP_DEPARTMENT_IX | 10 | | 0 (0)| 00:00:01 |
+-------------------------------------------------------------------------------------------------
+
+Predicate InfORmation (identified by operation id):
+---------------------------------------------------
+
+4 - access("E"."DEPARTMENT_ID"="D"."DEPARTMENT_ID")
+
+Reason behind the modified output> Yes there is change
+.............................................................................................................
+
+Assignment 2:
+
+SQL> DBMS_SESSION.SET_SQL_TRACE procedure
+
+SQL> SELECT * FROM employee WHERE emp_id = 101
+
+SQL> ALTER SESSION SET SQL_TRACE = FALSE;
+
+SELECT emp.ename, dept.dname 
+FROM employee emp, department dept
+  WHERE emp.deptno = dept.deptno
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.11       0.13          2          0          1           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.00       0.00          2          2          4          14
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.11       0.13          4          2          5          14
+
+Misses in library cache during parse: 1
+Optimizer goal: CHOOSE
+Parsing user id: 02   (USER02)
+Rows     Execution Plan
+-------  ---------------------------------------------------
+      0  SELECT STATEMENT   GOAL: CHOOSE
+     14   MERGE JOIN
+      4    SORT (JOIN)
+      4     TABLE ACCESS (FULL) OF 'DEPT'
+     14    SORT (JOIN)
+     14     TABLE ACCESS (FULL) OF 'EMP'
+
+********************************************************************************
+SELECT a.ename as "name", b.ename as "manager" 
+FROM employee a, employee b
+  WHERE a.mgr = b.empno(+)
+
+call     count       cpu    elapsed       disk      query    current        rows
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+Parse        1      0.01       0.01          0          0          0           0
+Execute      1      0.00       0.00          0          0          0           0
+Fetch        1      0.01       0.01          1         50          2          14
+------- ------  -------- ---------- ---------- ---------- ----------  ----------
+total        3      0.02       0.02          1         50          2          14
+
+Misses in library cache during parse: 1
+Optimizer goal: CHOOSE
+Parsing user id: 01  (USER01)
+Rows     Execution Plan
+-------  ---------------------------------------------------
+      0  SELECT STATEMENT   GOAL: CHOOSE
+     13   NESTED LOOPS (OUTER)
+     14    TABLE ACCESS (FULL) OF 'EMP'
+     13    TABLE ACCESS (BY ROWID) OF 'EMP'
+    26     INDEX (RANGE SCAN) OF 'EMP_IND' (NON-UNIQUE)
+********************************************************************************
+
+.............................................................................................................
+
+Assignment 4:
+
+Before Indexing>
+
+SQL> EXPLAIN PLAN FOR select * from EMPLOYEE where MGR IS NULL;
+SQL> SELECT PLAN_TABLE_OUTPUT FROM TABLE(DBMS_XPLAN.DISPLAY());
+
+Output>
+
+PLAN_TABLE_OUTPUT
+Plan hash value: 1896031711
+
+--------------------------------------------------------------------------
+| Id | Operation | Name | Rows | Bytes | Cost (%CPU)| Time |
+--------------------------------------------------------------------------
+| 0 | SELECT STATEMENT | | 9 | 1197 | 3 (0)| 00:00:01 |
+|* 1 | TABLE ACCESS FULL| EMPLOYEE | 9 | 1197 | 3 (0)| 00:00:01 |
+--------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+1 - filter("MGR" IS NULL)
+
+-----
+
+After Indexing>
+
+SQL> create index MGR_IDX ON Employee(upper(MGR));
+
+SQL> EXPLAIN PLAN FOR select /*+ INDEX_RS_ASC(e MGR_IDX) */ * from EMPLOYEE e where MGR IS NULL;
+SQL> SELECT PLAN_TABLE_OUTPUT FROM TABLE(DBMS_XPLAN.DISPLAY());
+
+Output>
+
+PLAN_TABLE_OUTPUT
+Plan hash value: 4031004625
+
+---------------------------------------------------------------------------------------
+| Id | Operation | Name | Rows | Bytes | Cost (%CPU)| Time |
+---------------------------------------------------------------------------------------
+| 0 | SELECT STATEMENT | | 9 | 1197 | 2 (0)| 00:00:01 |
+| 1 | TABLE ACCESS BY INDEX ROWID| EMPLOYEE | 9 | 1197 | 2 (0)| 00:00:01 |
+|* 2 | INDEX RANGE SCAN | MGR_IDX | 9 | | 1 (0)| 00:00:01 |
+---------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+1 - filter("MGR" IS NULL)
+
+-----
