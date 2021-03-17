@@ -15,7 +15,6 @@ j. SELECT * FROM Employee Order by SAL;
 k. SELECT * FROM Employee WHERE DEPTNO not in (10, 20, 30);
 l. SELECT EMPNO, ENAME, SAL * 12 AS "AnnualSalary" FROM Employee WHERE DEPTNO = 10;
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Assignment : 2
 
@@ -32,7 +31,7 @@ j. SELECT initcap(Book_Name), AuthOR_name FROM Books ORder by Book_Name desc;
 k. select to_char(Issue_Date, 'Day MON, DD, YY'), to_char(Return_date, 'Day MON, DD, YY') from Issue where Member_Id = 101;
 l. SELECT * FROM Member WHERE Acc_Open_Date >= '1-jan-01';
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 Assignment : 3
 
@@ -49,7 +48,8 @@ j. SELECT Lib_Issue_Id, Issue_Date,Return_Date,datediff(days,Return_date,Issue_D
 k. SELECT sum(Penality_Amount) FROM Member;
 l. SELECT * FROM members Order by Acc_Open_Date ;
 
-______________________________________________________________________________________________________________________________________________________________________________
+
+
 
 Topic 2: 
 Data Types
@@ -66,7 +66,6 @@ h. SELECT to_char(sysdate, 'MON DD YYYY') FROM dual;
 i. BINARY_FLOAT is 32-bit floating point number of 4 bytes, WHEREas NUMBER is a numeric value which has having precision p and scale s, ranges between 1 to 22 bytes.
 j. BFILE Contains a locatOR to a large binary file stORed outside the database. It enables byte stream I/O access to external LOBs residing on the database server.
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------_
 
 Assignment : 2
 
@@ -86,8 +85,6 @@ i. VARCHAR2 - Variable-length character string having maximum length size bytes 
 j. BLOB - Binary Large Object, used fOR stORing binary data. cx_ORacle uses the type cx_ORacle.DB_TYPE_BLOB.
    CLOB - Character Large Object, used fOR string strings in the database character set fORmat. cx_ORacle uses the type cx_ORacle.DB_TYPE_CLOB.
 
-______________________________________________________________________________________________________________________________________________________________________________
-
 Topic 3: 
 Aggregation and Sub-Queries
 Assignment : 1
@@ -103,7 +100,6 @@ h. SELECT * FROM Customer WHERE (SELECT count(distinct(VehicleNo)) FROM Shipment
 i. SELECT * FROM Customer WHERE CustIncome > 500000 and CustId = (SELECT CustId FROM Shipment WHERE ShipWeight > 100 OR ShipDestination = 'NewDelhi');
 j. SELECT * FROM Vehicle WHERE VehNo = (SELECT MAX(VehicleNo) FROM Shipment);
 
-.............................................................................................................
 
 Assignment : 2
 
@@ -119,7 +115,6 @@ h. SELECT b.Book_No, b.Book_Name, i.Issue_Date, i.Return_date FROM Books b join 
 i. SELECT * FROM Books WHERE cost in (SELECT MAX(Cost) FROM Books group by CategORy);
 j. SELECT m.Member_Id, m.Member_Name FROM Member m, Issue i WHERE m.Max_Books_Allowed < (SELECT(count(Book_No) FROM Issue WHERE m.Member_Id = i.Member_Id) and m.Member_Id = i.Member_Id group by m.Member_name, m.Member_Id;
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------_
 
 Assignment : 3
 
@@ -134,7 +129,8 @@ h. SELECT * FROM Employee WHERE HIREDATE > (SELECT HIREDATE FROM Employee WHERE 
 i. SELECT DISTINCT SAL FROM Employee ORDER BY SAL DESC limit 1 offset n-1;
 j. SELECT (SELECT count(ENAME) FROM EMployee WHERE DEPTNO =20) AS "NUMBER OF EMPOLYEES",(SELECT avg(SAL) FROM EMployee WHERE DEPTNO =20) AS "AVERAGE" FROM Employee LIMIT 1z;
 
-_____________________________________________________________________________________________________________
+
+
 
 Topic 4: 
 Creating and Managing Database objects
@@ -160,7 +156,9 @@ n. create sequence member_seq increment by 1 start with 1 maxvalue 100 nocycle;
 o. drop sequence book_seq;
    drop sequence member_seq;
    
-_____________________________________________________________________________________________________________   
+
+
+
    
 Topic 5: 
 Data Manipulation
@@ -184,7 +182,7 @@ a. insert into Employee values (100,'A','PEON',546,'17-MAR-2021',2000,NULL,16);
 b. update Employee set SAL = SAL * 1.1 WHERE DEPTNO in (10, 20);
 c. update Employee set SAL = SAL * 1.1 and COMM = COMM * 1.02 WHERE COMM is not null;
 d. update Employee set JOB = 'MANAGER' WHERE EMPNO in (SELECT MGR FROM Employee);
-e. delete FROM Employee WHERE to_char(HIREDATE, 'YEAR') < 1980;
+e. delete FROM Employee WHERE to_char(HIREDATE, 'YEAR') < 2000;
 f. update Member set Max_Books_Allowed = 110 WHERE Member_Id = 100;
    ErrOR -> ORA-02290: check constraint CHK_MEMBER violated
    Reason -> Check constraint was set to Max_Books_Allowed column earlier WHERE its value was set as must be greater than 100, hence the new value of 110 is violating the constraint.
@@ -196,11 +194,11 @@ i. insert into Books values (1000, 'MongoDB', 'Allen', 750, 'Database');
    insert into Books values (1003, 'PL SQL-Ref', 'Scott Urman', 750, 'Database');
 j. create type t_emp as object(EMPNO number, ENAME varchar2(40), JOB varchar2(20), MGR number, HIREDATE date, SAL number, COMM number, DEPTNO number);
    create type t_emplist as table of t_emp;
-   insert into Employee values (5, t_emplist(t_emp(160,'I','WAITER',545,'18-MAR-95',5000,7,35),
-											 t_emp(170,'J','WAITER',545,'18-MAR-95',5000,7,35),
-											 t_emp(180,'K','WAITER',590,'18-MAR-95',8000,7,35),
-											 t_emp(190,'L','WAITER',545,'18-MAR-95',5000,7,35),
-											 t_emp(260,'M','WAITER',590,'18-MAR-95',2000,NULL));
+   insert into Employee values (5, t_emplist(t_emp(160,'I','WAITER',545,'17-MAR-20',5000,7,35),
+											 t_emp(170,'J','WAITER',545,'17-MAR-20',5000,7,35),
+											 t_emp(180,'K','WAITER',590,'17-MAR-20',8000,7,35),
+											 t_emp(190,'L','WAITER',545,'17-MAR-20',5000,7,35),
+											 t_emp(260,'M','WAITER',590,'17-MAR-20',2000,NULL));
 k. ROLLBACK;
 l. update Books set Cost = 300 and CategORy = 'ORacleDatabase' WHERE Book_No = 1003;
 m. SAVEPOINT T;
@@ -209,7 +207,7 @@ m. SAVEPOINT T;
    ROLLBACK to T;
 n. COMMIT;
 
-_____________________________________________________________________________________________________________
+
 
 Topic 6: 
 HQ and DML, DDL Extension
