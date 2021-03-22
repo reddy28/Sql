@@ -20,7 +20,7 @@ Assignment : 2
 
 a. SELECT * FROM Books WHERE Author_name = 'Loni' and Cost < 600;
 b. SELECT * FROM Issue WHERE Return_date is null;
-c. SELECT * FROM Issue WHERE datediff(days,Return_date,Issue_Date)) > 30;
+c. select * from Issue where (Return_date - Issue_Date) > 30;
 d. SELECT * FROM Books WHERE Category = 'Database' and Cost between 500 and 750;
 e. SELECT * FROM Books WHERE Category in ('Science', 'Database', 'Fiction', 'Management');
 f. SELECT * FROM Member Order by Penalty_Amount desc;
@@ -35,16 +35,16 @@ l. SELECT * FROM Member WHERE Acc_Open_Date >= '1-jan-01';
 
 Assignment : 3
 
-a. SELECT TIMESTAMPDIFF(Return_date,Issue_Date) FROM Issue
+a. SELECT Return_date-Issue_Date FROM Issue
 b. SELECT length(Member_Name) FROM Member;
-c. SELECT LEFT(Membership_type,5) FROM Member;
-d. SELECT Dayname(max(Issue_Date)) FROM Issue;
-e. SELECT * FROM Books WHERE Book_Name REGEXP '^l';
+c. SELECT substr(Membership_type,1,5) FROM Member;
+d. SELECT max(Issue_Date) FROM Issue;
+e. SELECT * FROM Books WHERE REGEXP_LIKE (Book_Name,'^L');;
 f. SELECT * FROM Member WHERE Member_Name like 'R%;
 g. SELECT * FROM Books WHERE Book_Name like '%SQL%';
 h. Update Books set Book_name =  REGEXP_REPLACE(Book_Name, 'Mastering', 'Advanced');
-i. SELECT * FROM Books WHERE left(Book_Name,5) REGEXP 'g';
-j. SELECT Lib_Issue_Id, Issue_Date,Return_Date,datediff(days,Return_date,Issue_Date) as "Issued days" FROM Issue;
+i. SELECT * FROM Books WHERE REGEXP_like (substr(Book_Name,1,5),'[G,g]');;
+j. SELECT Lib_Issue_Id, Issue_Date,Return_Date,Return_date-Issue_Date) as "Issued days" FROM Issue;
 k. SELECT sum(Penality_Amount) FROM Member;
 l. SELECT * FROM members Order by Acc_Open_Date ;
 
@@ -55,13 +55,13 @@ Topic 2:
 Data Types
 Assignment : 1
 
-a. Numeric and number(10,2) wORks as same .
+a. NUMERIC is an invalid data type, while NUMBER (10, 2) is a valid number data type with precision and scale in Oracle SQL.
 b. CHAR(48) is fixed-length character data type, WHEREas VARCHAR(48) is a dynamic-length character data type in ORacle SQL.
 c. CHAR is fixed-length character data type, VARCHAR2 is dynamic-length character data type, CLOB is a large character data type containing single-byte OR multibyte characters.
 d. VARCHAR2, NVARCHAR2, NUMBER, FLOAT, LONG, DATE, BINARY_FLOAT, BINARY_DOUBLE, TIMESTAMP, TIMESTAMP WITH TIME ZONE, TIMESTAMP WITH LOCAL TIME ZONE, INTERVAL YEAR TO MONTH, INTERVAL DAY TO SECOND, RAW, LONG RAW, ROWID, UROWID, CHAR, NCHAR, CLOB, NCLOB, BLOB, BFILE.
 e. CLOB contains a character large object containing single-byte OR multibyte characters. BLOB contains a binary large object.
 f. DATE
-g. MM-DD-YYYY
+g. DD-MM-YYYY
 h. SELECT to_char(sysdate, 'MON DD YYYY') FROM dual;
 i. BINARY_FLOAT is 32-bit floating point number of 4 bytes, WHEREas NUMBER is a numeric value which has having precision p and scale s, ranges between 1 to 22 bytes.
 j. BFILE Contains a locatOR to a large binary file stORed outside the database. It enables byte stream I/O access to external LOBs residing on the database server.
@@ -127,7 +127,7 @@ f. SELECT * FROM Employee WHERE JOB = (SELECT JOB FROM Employee WHERE EMPNO=7788
 g. SELECT * FROM Employee WHERE SAL > (SELECT AVG(SAL) FROM Employee);
 h. SELECT * FROM Employee WHERE HIREDATE > (SELECT HIREDATE FROM Employee WHERE ENAME="KING");
 i. SELECT DISTINCT SAL FROM Employee ORDER BY SAL DESC limit 1 offset n-1;
-j. SELECT (SELECT count(ENAME) FROM EMployee WHERE DEPTNO =20) AS "NUMBER OF EMPOLYEES",(SELECT avg(SAL) FROM EMployee WHERE DEPTNO =20) AS "AVERAGE" FROM Employee LIMIT 1z;
+j. SELECT (SELECT count(ENAME) FROM EMployee WHERE DEPTNO =20) AS "NUMBER OF EMPOLYEES",(SELECT avg(SAL) FROM EMployee WHERE DEPTNO =20) AS "AVERAGE" FROM Employee LIMIT 1;
 
 
 
