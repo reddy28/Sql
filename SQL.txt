@@ -3,7 +3,7 @@ Data Retrieval manipulation
 Assignment : 1
 
 a. SELECT count(EMPNO), avg(SAL) FROM Employee WHERE DEPTNO = 20;
-b. SELECT ENAME, SAL, SAL * 0.1 AS 'PF' FROM Employee;
+b. SELECT ENAME, SAL, SAL * 0.1 AS "PF" FROM Employee;
 c. SELECT ENAME, JOB FROM Employee WHERE MGR is null;
 d. SELECT ENAME, EMPNO, JOB, HIREDATE FROM Employee WHERE EMPNO in (SELECT MGR FROM Employee);
 e. SELECT EMPNO, ENAME, SAL FROM Employee WHERE MGR = 7369;
@@ -164,47 +164,48 @@ Topic 5:
 Data Manipulation
 Assignment : 1
 
-a. insert into Employee values (100,'A','PEON',546,'17-MAR-2021',2000,NULL,16);
-   insert into Employee values (101,'B','PEON',546,'17-MAR-2021',2000,NULL,16);
-   insert into Employee values (102,'C','PEON',546,'17-MAR-2021',2000,NULL,16);
-   insert into Employee values (103,'D','PEON',546,'17-MAR-2021',2000,5,16);
-   insert into Employee values (104,'E','PEON',546,'17-MAR-2021',3000,NULL,16);
-   insert into Employee values (105,'F','PEON',546,'17-MAR-2021',2000,NULL,16);
-   insert into Employee values (106,'G','PEON',579,'17-MAR-2021',2000,NULL,16);
-   insert into Employee values (107,'H','PEON',579,'17-MAR-2021',3000,NULL,16);
-   insert into Employee values (108,'Z','PEON',549,'17-MAR-2021',2000,10,16);
-   insert into Employee values (109,'Y','PEON',549,'17-MAR-2021',2000,NULL,16);
-   insert into Employee values (110,'X','PEON',549,'17-MAR-2021',2000,NULL,16);
-   insert into Employee values (120,'W','PEON',579,'17-MAR-2021',5000,NULL,16);
-   insert into Employee values (130,'V','PEON',200,'17-MAR-2021',2000,NULL,16);
-   insert into Employee values (140,'U','PEON',545,'17-MAR-2021',2000,NULL,16);
-   insert into Employee values (150,'T','PEON',545,'17-MAR-2021',7000,10,16);
+a. insert into Employee values (100,'A','PEON',546,'17-MAR-2021',2000,NULL,10);
+   insert into Employee values (101,'B','PEON',546,'17-MAR-2021',2000,NULL,10);
+   insert into Employee values (102,'C','PEON',546,'17-MAR-2021',2000,NULL,10);
+   insert into Employee values (103,'D','PEON',546,'17-MAR-2021',2000,5,10);
+   insert into Employee values (104,'E','PEON',546,'17-MAR-2021',3000,NULL,10);
+   insert into Employee values (105,'F','PEON',546,'17-MAR-2021',2000,NULL,10);
+   insert into Employee values (106,'G','PEON',579,'17-MAR-2021',2000,NULL,10);
+   insert into Employee values (107,'H','PEON',579,'17-MAR-2021',3000,NULL,10);
+   insert into Employee values (108,'Z','PEON',549,'17-MAR-2021',2000,10,10);
+   insert into Employee values (109,'Y','PEON',549,'17-MAR-2021',2000,NULL,10);
+   insert into Employee values (110,'X','PEON',549,'17-MAR-2021',2000,NULL,10);
+   insert into Employee values (120,'W','PEON',579,'17-MAR-2021',5000,NULL,10);
+   insert into Employee values (130,'V','PEON',200,'17-MAR-2021',2000,NULL,10);
+   insert into Employee values (140,'U','PEON',545,'17-MAR-2021',2000,NULL,10);
+   insert into Employee values (150,'T','PEON',545,'17-MAR-2021',7000,10,10);
 b. update Employee set SAL = SAL * 1.1 WHERE DEPTNO in (10, 20);
-c. update Employee set SAL = SAL * 1.1 and COMM = COMM * 1.02 WHERE COMM is not null;
+c. update Employee set SAL = SAL * 1.1, COMM = COMM * 1.02 WHERE COMM is not null;
 d. update Employee set JOB = 'MANAGER' WHERE EMPNO in (SELECT MGR FROM Employee);
-e. delete FROM Employee WHERE to_char(HIREDATE, 'YEAR') < 2000;
+e. delete FROM Emp WHERE EXTRACT(Year FROM Hiredate) < 2000;
 f. update Member set Max_Books_Allowed = 110 WHERE Member_Id = 100;
    ErrOR -> ORA-02290: check constraint CHK_MEMBER violated
    Reason -> Check constraint was set to Max_Books_Allowed column earlier WHERE its value was set as must be greater than 100, hence the new value of 110 is violating the constraint.
-g. insert into NewBook SELECT * FROM Books;
+g. create table NewBook as (SELECT * FROM Book WHERE 1=0);
+   insert into NewBook SELECT * FROM Books;
 h. COMMIT;
 i. insert into Books values (1000, 'MongoDB', 'Allen', 750, 'Database');
    insert into Books values (1001, 'Python 3', 'Magret', 1350, 'AI');
    insert into Books values (1002, 'Angular 4', 'Google', 2750, 'UI');
    insert into Books values (1003, 'PL SQL-Ref', 'Scott Urman', 750, 'Database');
-j. create type t_emp as object(EMPNO number, ENAME varchar2(40), JOB varchar2(20), MGR number, HIREDATE date, SAL number, COMM number, DEPTNO number);
-   create type t_emplist as table of t_emp;
-   insert into Employee values (5, t_emplist(t_emp(160,'I','WAITER',545,'17-MAR-20',5000,7,35),
-											 t_emp(170,'J','WAITER',545,'17-MAR-20',5000,7,35),
-											 t_emp(180,'K','WAITER',590,'17-MAR-20',8000,7,35),
-											 t_emp(190,'L','WAITER',545,'17-MAR-20',5000,7,35),
-											 t_emp(260,'M','WAITER',590,'17-MAR-20',2000,NULL));
+j. insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO)
+	VALUES  (160,'I','WAITER',545,'17-MAR-2021',5000,7,40),
+        	(170,'J','WAITER',545,'17-MAR-2021',5000,NULL,30),
+       		(180,'K','WAITER',590,'17-MAR-2021',8000,7,50),
+        	(190,'L','WAITER',545,'17-MAR-2021',5000,7,40),
+        	(260,'M','WAITER',590,'17-MAR-2021',2000,6,20);
 k. ROLLBACK;
-l. update Books set Cost = 300 and CategORy = 'ORacleDatabase' WHERE Book_No = 1003;
-m. SAVEPOINT T;
-   delete FROM Issue WHERE Member_Id = 1 and Issue_Date < '10-DEC-06';
-   delete FROM Books WHERE CategORy not in (RDBMS', 'Database');
-   ROLLBACK to T;
+l. ALTER TABLE Books MODIFY category char(15);
+	update Books set Cost = 300,CategORy = 'ORacleDatabase' WHERE Book_No = 1003;
+m. SAVEPOINT SP1;
+   delete FROM Issue WHERE Member_Id = 1 and Issue_Date < '10-DEC-2021';
+   delete FROM Books WHERE CategORy not in ('RDBMS', 'Database');
+   ROLLBACK to SP1;
 n. COMMIT;
 
 
@@ -222,42 +223,38 @@ SELECT ENAME, EMPNO, MGR, LEVEL FROM Employee
 
 Assignment 2:
 
-CREATE TABLE "SYS_SQLLDR_X_EXT_EMP"
-    (
-      "EMPNO" NUMBER(4),
-      "ENAME" VARCHAR2(10),
-      "JOB" VARCHAR2(9),
-      "HIREDATE" DATE,
-    )
-ORGANIZATION external
-(
-    TYPE ORacle_loader
-    DEFAULT DIRECTORY MY_DIR
-    ACCESS PARAMETERS
-    (
-		RECORDS DELIMITED BY NEWLINE
-        BADFILE 'emp.bad'
-        LOGFILE 't.log_xt'
-		READSIZE 1048576
-		FIELDS TERMINATED BY "," OPTIONALLY ENCLOSED BY '"' LDRTRIM
-		REJECT ROWS WITH ALL NULL FIELDS
-		(
-		"EMPNO" CHAR(255)
-           TERMINATED BY "," OPTIONALLY ENCLOSED BY '"',
-        "ENAME" CHAR(255)
-           TERMINATED BY "," OPTIONALLY ENCLOSED BY '"',
-        "JOB" CHAR(255)
-           TERMINATED BY "," OPTIONALLY ENCLOSED BY '"',
-        "HIREDATE" CHAR(255)
-          TERMINATED BY "," OPTIONALLY ENCLOSED BY '"',
-       )
-     )
-     location
-     (
-       'emp.csv'
-     )
-   )REJECT LIMIT UNLIMITED
- /
+CREATE OR REPLACE DIRECTORY load_dir AS 'C:\Users\buddy\Desktop';
+
+CREATE TABLE PA_Zip_Code_Locations
+ (
+ ZIP VARCHAR2(10),
+ AREANAME VARCHAR2(30),
+ LATITUDE NUMBER,
+ LONGITUDE NUMBER,
+ POPULATION NUMBER,
+ LOGGED_DATE DATE
+ ) 
+ ORGANIZATION EXTERNAL
+ (
+ TYPE oracle_loader
+ DEFAULT DIRECTORY load_dir
+ ACCESS PARAMETERS 
+ (
+ RECORDS DELIMITED BY NEWLINE
+ badfile load_dir:'PA_Zip_Code_Locations.bad'
+ logfile load_dir:'PA_Zip_Code_Locations.log'
+ FIELDS TERMINATED BY ','
+ MISSING FIELD VALUES ARE NULL
+ ( 
+ ZIP,
+ AREANAME,
+ LATITUDE,
+ LONGITUDE,
+ POPULATION,
+ LOGGED_DATE
+ ))
+ LOCATION ('PA_Zip_Code_Locations.csv')
+ )REJECT LIMIT UNLIMITED;
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------_
 
@@ -265,10 +262,10 @@ Assignment : 3
 
  
 INSERT ALL
-	INTO SAL_HISTORY VALUES(EMPID,HIREDATE,SAL)
-	INTO mgr_histORy VALUES(EMPID,MGR,SAL)
+	INTO SAL_HISTORY(EMPID,HIREDATE,SALARY) VALUES(EMPID,HIREDATE,SAL)
+	INTO MGR-HISTORY(EMPID,MGR_ID,HIREDATE) VALUES(EMPID,MGR,HIREDATE)
 	SELECT EMPNO as EMPID, HIREDATE, SAL, MGR 
-	FROM employees;
+	FROM emp;
 _____________________________________________________________________________________________________________
 
 Topic 7: 
@@ -287,58 +284,67 @@ SELECT PLAN_TABLE_OUTPUT FROM TABLE(DBMS_XPLAN.DISPLAY());
 Output>
 
 PLAN_TABLE_OUTPUT
-Plan hash value: 2052257371
-
-----------------------------------------------------------------------------------
-| Id | Operation | Name | Rows | Bytes | Cost (%CPU)| Time |
-----------------------------------------------------------------------------------
-| 0 | SELECT STATEMENT | | 106 | 3180 | 7 (15)| 00:00:01 |
-|* 1 | HASH JOIN | | 106 | 3180 | 7 (15)| 00:00:01 |
-| 2 | TABLE ACCESS FULL| DEPARTMENTS | 30 | 480 | 3 (0)| 00:00:01 |
-| 3 | TABLE ACCESS FULL| EMPLOYEES | 107 | 1498 | 3 (0)| 00:00:01 |
-----------------------------------------------------------------------------------
-
-Predicate InfORmation (identified by operation id):
+Plan hash value: 1343509718
+ 
+--------------------------------------------------------------------------------------------
+| Id  | Operation                    | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT             |             |   106 |  3180 |     6  (17)| 00:00:01 |
+|   1 |  MERGE JOIN                  |             |   106 |  3180 |     6  (17)| 00:00:01 |
+|   2 |   TABLE ACCESS BY INDEX ROWID| DEPARTMENTS |    27 |   432 |     2   (0)| 00:00:01 |
+|   3 |    INDEX FULL SCAN           | DEPT_ID_PK  |    27 |       |     1   (0)| 00:00:01 |
+|*  4 |   SORT JOIN                  |             |   107 |  1498 |     4  (25)| 00:00:01 |
+|   5 |    TABLE ACCESS FULL         | EMPLOYEES   |   107 |  1498 |     3   (0)| 00:00:01 |
+--------------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
 ---------------------------------------------------
+ 
+   4 - access("E"."DEPARTMENT_ID"="D"."DEPARTMENT_ID")
+       filter("E"."DEPARTMENT_ID"="D"."DEPARTMENT_ID")
 
-1 - access("E"."DEPARTMENT_ID"="D"."DEPARTMENT_ID")
 
 SQL> alter session set optimizer_mode=first_rows;
 
+EXPLAIN PLAN FOR 
+	SELECT e.employee_id,e.first_name,d.department_name
+	FROM hr.employees E, hr.departments D
+	WHERE e.department_id = d.department_id;
+
+SELECT PLAN_TABLE_OUTPUT FROM TABLE(DBMS_XPLAN.DISPLAY());
+
 Output>
 
-PLAN_TABLE_OUTPUT
-Plan hash value: 2912831499
-
--------------------------------------------------------------------------------------------------
-| Id | Operation | Name | Rows | Bytes | Cost (%CPU)| Time |
--------------------------------------------------------------------------------------------------
-| 0 | SELECT STATEMENT | | 106 | 3180 | 12 (0)| 00:00:01 |
-| 1 | TABLE ACCESS BY INDEX ROWID| EMPLOYEES | 4 | 56 | 1 (0)| 00:00:01 |
-| 2 | NESTED LOOPS | | 106 | 3180 | 12 (0)| 00:00:01 |
-| 3 | TABLE ACCESS FULL | DEPARTMENTS | 30 | 480 | 3 (0)| 00:00:01 |
-|* 4 | INDEX RANGE SCAN | EMP_DEPARTMENT_IX | 10 | | 0 (0)| 00:00:01 |
--------------------------------------------------------------------------------------------------
-
-Predicate InfORmation (identified by operation id):
+| Id  | Operation                    | Name              | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT             |                   |   106 |  3180 |    14   (0)| 00:00:01 |
+|   1 |  NESTED LOOPS                |                   |   106 |  3180 |    14   (0)| 00:00:01 |
+|   2 |   NESTED LOOPS               |                   |   270 |  3180 |    14   (0)| 00:00:01 |
+|   3 |    TABLE ACCESS FULL         | DEPARTMENTS       |    27 |   432 |     3   (0)| 00:00:01 |
+|*  4 |    INDEX RANGE SCAN          | EMP_DEPARTMENT_IX |    10 |       |     0   (0)| 00:00:01 |
+|   5 |   TABLE ACCESS BY INDEX ROWID| EMPLOYEES         |     4 |    56 |     1   (0)| 00:00:01 |
+--------------------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
 ---------------------------------------------------
+ 
+   4 - access("E"."DEPARTMENT_ID"="D"."DEPARTMENT_ID")
 
-4 - access("E"."DEPARTMENT_ID"="D"."DEPARTMENT_ID")
+Reason behind the modified output> Yes there is change.With the default optimizer_mode of all_rows, the query performs two full-scan operations against the target tables and feeds these into a hash join.  This is consistent with the optimizer goal of all_rows, which is to minimize computing resources. When we change the optimizer_mode to first_rows, we see that the execution plan changes, and the hash join is replaced by a nested loops join operation, and the full table scans are replaced by index range scans.  The first_rows access incurs additional I/O (more than the full scans in the all_rows plan), but the index access ensures the fastest possible response time.
 
-Reason behind the modified output> Yes there is change
 .............................................................................................................
 
 Assignment 2:
 
 SQL> DBMS_SESSION.SET_SQL_TRACE procedure
 
-SQL> SELECT * FROM employee WHERE emp_id = 101
+SQL> SELECT emp.ename, dept.dname 
+  	FROM employee emp, department dept
+  	WHERE emp.deptno = dept.deptno
 
 SQL> ALTER SESSION SET SQL_TRACE = FALSE;
 
-SELECT emp.ename, dept.dname 
-FROM employee emp, department dept
-  WHERE emp.deptno = dept.deptno
+exec start_trace(17, 6157, 30);
 
 call     count       cpu    elapsed       disk      query    current        rows
 ------- ------  -------- ---------- ---------- ---------- ----------  ----------
@@ -395,23 +401,25 @@ SQL> EXPLAIN PLAN FOR select * from EMPLOYEE where MGR IS NULL;
 SQL> SELECT PLAN_TABLE_OUTPUT FROM TABLE(DBMS_XPLAN.DISPLAY());
 
 Output>
-
 PLAN_TABLE_OUTPUT
-Plan hash value: 1896031711
 
+Plan hash value: 3956160932
+ 
 --------------------------------------------------------------------------
-| Id | Operation | Name | Rows | Bytes | Cost (%CPU)| Time |
+| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
 --------------------------------------------------------------------------
-| 0 | SELECT STATEMENT | | 9 | 1197 | 3 (0)| 00:00:01 |
-|* 1 | TABLE ACCESS FULL| EMPLOYEE | 9 | 1197 | 3 (0)| 00:00:01 |
+|   0 | SELECT STATEMENT  |      |     1 |    87 |     3   (0)| 00:00:01 |
+|*  1 |  TABLE ACCESS FULL| EMP  |     1 |    87 |     3   (0)| 00:00:01 |
 --------------------------------------------------------------------------
-
+ 
 Predicate Information (identified by operation id):
 ---------------------------------------------------
-
-1 - filter("MGR" IS NULL)
-
+ 
+   1 - filter("MGR" IS NULL)
+ 
+Note
 -----
+   - dynamic statistics used: dynamic sampling (level=2)
 
 After Indexing>
 
@@ -423,19 +431,27 @@ SQL> SELECT PLAN_TABLE_OUTPUT FROM TABLE(DBMS_XPLAN.DISPLAY());
 Output>
 
 PLAN_TABLE_OUTPUT
-Plan hash value: 4031004625
-
----------------------------------------------------------------------------------------
-| Id | Operation | Name | Rows | Bytes | Cost (%CPU)| Time |
----------------------------------------------------------------------------------------
-| 0 | SELECT STATEMENT | | 9 | 1197 | 2 (0)| 00:00:01 |
-| 1 | TABLE ACCESS BY INDEX ROWID| EMPLOYEE | 9 | 1197 | 2 (0)| 00:00:01 |
-|* 2 | INDEX RANGE SCAN | MGR_IDX | 9 | | 1 (0)| 00:00:01 |
----------------------------------------------------------------------------------------
-
+Plan hash value: 3956160932
+ 
+--------------------------------------------------------------------------
+| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |      |     1 |    87 |     3   (0)| 00:00:01 |
+|*  1 |  TABLE ACCESS FULL| EMP  |     1 |    87 |     3   (0)| 00:00:01 |
+--------------------------------------------------------------------------
+ 
 Predicate Information (identified by operation id):
 ---------------------------------------------------
-
-1 - filter("MGR" IS NULL)
-
+ 
+   1 - filter("MGR" IS NULL)
+ 
+Hint Report (identified by operation id / Query Block Name / Object Alias):
+Total hints for statement: 1 (U - Unused (1))
+---------------------------------------------------------------------------
+ 
+   1 -  SEL$1 / E@SEL$1
+         U -  INDEX_RS_ASC(e MGR_IDX)
+ 
+Note
 -----
+   - dynamic statistics used: dynamic sampling (level=2)
